@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             apt-get install -y npm
-            yarn install
+            sudo npm install -g yarn -y
             npm run-script build
             yarn start
       
