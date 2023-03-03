@@ -17,9 +17,9 @@ jobs:
           port: 22
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            npm install
-            npm run-script build
+            apt-get install -y npm
             yarn install
+            npm run-script build
             yarn start
       
 
