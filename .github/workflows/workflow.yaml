@@ -1,0 +1,27 @@
+
+name: Deploy tic-tac-toe to EC2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-nginx:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Connect to EC2 instance
+        uses: appleboy/ssh-action@master
+        with:
+          host: 13.250.123.137
+          username: ubuntu
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            npm install
+            npm run-script build
+            yarn install
+            yarn start
+      
+
+
+
