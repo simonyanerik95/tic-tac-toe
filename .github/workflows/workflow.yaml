@@ -18,6 +18,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             whoami
+            apt-get update
             apt-get install -y npm
             npm install -g yarn -y
             npm run-script build
