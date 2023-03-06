@@ -17,9 +17,17 @@ jobs:
           port: 22
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            git clone https://github.com/dmitrymalakhov/react-tic-tac-toe.git
-            cd react-tic-tac-toe
-            
+            git clone https://github.com/simonyanerik95/tic-tac-toe.git
+            cd tic-tac-toe
+            sudo apt-get update
+            sudo apt-get install docker.io
+            sudo systemctl start docker
+            sudo docker build -t tic-tac-toe:latest .
+            sudo docker run -d -p 8090:8090 tic-tac-toe:latest
+
+
+
+
       
 
 
