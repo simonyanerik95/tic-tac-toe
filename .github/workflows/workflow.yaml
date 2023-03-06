@@ -17,13 +17,9 @@ jobs:
           port: 22
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo apt-get update
-            sudo apt-get install -y git nodejs npm
             git clone https://github.com/dmitrymalakhov/react-tic-tac-toe.git
             cd react-tic-tac-toe
-            sudo npm install -g yarn
-            yarn install
-            yarn start
+            
       
 
 
