@@ -12,7 +12,7 @@ jobs:
       - name: Connect to EC2 instance
         uses: appleboy/ssh-action@master
         with:
-          host: 54.179.42.31
+          host: 18.141.164.173
           username: ubuntu
           port: 22
           key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -20,10 +20,15 @@ jobs:
             git clone https://github.com/simonyanerik95/tic-tac-toe.git
             cd tic-tac-toe
             sudo apt-get update
-            sudo apt-get install docker.io
-            sudo systemctl start docker
+            sudo apt-get install docker.io -y
             sudo docker build -t tic-tac-toe:latest .
-            sudo docker run -d -p 8090:8090 tic-tac-toe:latest
+            sudo apt-get install -y awscli
+            aws configure set aws_access_key_id ${{ secrets.ACCESS_KEY_ID }}
+            aws configure set aws_secret_access_key ${{ secrets.SECRET_ACCESS_KEY }}
+            aws configure set default.region ap-southeast-1
+            sudo $(aws ecr get-login --no-include-email --region ap-southeast-1)
+            sudo docker tag tic-tac-toe:latest 771269173331.dkr.ecr.ap-southeast-1.amazonaws.com/tic-tac-toe:latest
+            sudo docker push 771269173331.dkr.ecr.ap-southeast-1.amazonaws.com/tic-tac-toe:latest
 
 
 
