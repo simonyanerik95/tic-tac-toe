@@ -1,0 +1,34 @@
+
+name: Deploy tic-tac-toe to EC2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-nginx:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Connect to EC2 instance
+        uses: appleboy/ssh-action@master
+        with:
+          host: 54.179.42.31
+          username: ubuntu
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            git clone https://github.com/simonyanerik95/tic-tac-toe.git
+            cd tic-tac-toe
+            sudo apt-get update
+            sudo apt-get install docker.io
+            sudo systemctl start docker
+            sudo docker build -t tic-tac-toe:latest .
+            sudo docker run -d -p 8090:8090 tic-tac-toe:latest
+
+
+
+
+      
+
+
+
